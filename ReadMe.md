@@ -25,5 +25,7 @@ _Note: I'm not going to mention the websites I've scraped to obtain the text cor
 2. HTML documents are contained between \<html\> and \</html\> 
 3. The visible part of a HTML document is between \<body\> and \</body\>
 4. HTML headings are defined with the \<h1\> to \<h6\> tags. 
+5. I've used  the XPath to locate the desired text from a webpage
+6. 
 
 

@@ -5,13 +5,13 @@ import requests
 from corpus.lyrics import Corpus
 
 
-
 #   1. GETTING THE URLS
 
 url = "https://www.azlyrics.com/k/kendricklamar.html"
 reqs = requests.get(url=url)
 soup = BeautifulSoup(reqs.text, "html.parser")
 
+#   urls is a list of the urls of all relevant kendrick songs.
 urls = []
 for link in soup.find_all("a"):
     #   only getting all the kendrick lamar songs (singles + album releases) from the website        
@@ -19,6 +19,7 @@ for link in soup.find_all("a"):
         urls.append("https://www.azlyrics.com/" + link.get("href"))
 
 
+#   datset is a Corpus object.
 dataset = Corpus()
-print(dataset)
+song = dataset.gettext(url=urls[-1])
 
