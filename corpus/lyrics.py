@@ -35,12 +35,28 @@ class Corpus:
         req = requests.get(url)
         soup = BeautifulSoup(req.text, "html.parser")
 
-        div_1 = soup.find_all("div", class_= "col-xs-12 col-lg-8 text-center")        
-        print(str(div_1).split("<\div>"))
+        div_1 = list(soup.find_all("div", class_= "col-xs-12 col-lg-8 text-center")[0])
+
+        len_array = [len(div_1[i]) for  i in range(len(div_1))]
+        song_idx = len_array.index(max(len_array))
+
+
+        if save == True:
+            name = "corpus/lyrics/" + str(div_1[9].text) + ".txt"
+            f = open(name, "w+")
+            f.write(div_1[song_idx].text)
+            f.close()
+
+        
+        
+
+
+
+
+
+
     
     """
-
-
     def gettext(self, url, save =None):
         x_path = "/html/body/div[2]/div[2]/div[2]/div[5]"
         req = requests.get(url)
@@ -55,8 +71,12 @@ class Corpus:
 
 
     #   Function to generate the complete text file; Final Dataset.
-    def getcorpus(self, url_set):
-        pass 
+    def getcorpus(self, url_set, save=None):
+        for i in range(len(url_set)):
+            temp_url = url_set[i]
+
+            self.gettext(url=temp_url, save=save)
+
 
 
 if __name__ == "__main__":
@@ -72,8 +92,7 @@ if __name__ == "__main__":
             urls.append("https://www.azlyrics.com/" + link.get("href"))
 
 
-    test = urls[-1]
     corpus = Corpus()
-    corpus.gettext(url=test)
-
-    
+    # corpus.gettext(url=test, save=True)
+    # corpus.getcorpus(url_set=urls, save=True)
+    print(urls)
