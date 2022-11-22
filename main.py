@@ -39,7 +39,17 @@ if __name__ == "__main__":
             links.close()      
 
 
-    #   2. Getting the song lyrics from each link 
-    song = Song(title = "Hood Politics")
-    print(song.lyrics)
+    #   2. Getting the song lyrics from each link | Outputting to text files.
+    title = "DNA."
+    def save_song_lyrics(save = None):
+        for title in song_titles:
+            song = Song(title = title)
+            lyrics = song.lyrics
+            name = title + ".txt"
+            if save and (os.path.exists(os.path.join(path, "lyric_pages/", name)) == False):
+                with open(os.path.join(path, "lyric_pages/", name), "w+") as file:
+                    file.write(lyrics)
+                    file.close()
+
+    save_song_lyrics(True)
 

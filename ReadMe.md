@@ -13,7 +13,7 @@ This project has three aims:
 
 
 ## **Part 1: Generating a Text Corpus**
-I'm not aware of any text dataset which condenses all of Kendrick Lamar's verses. Before any RNN can be made, I need to collect all of his works into a single txt file. To keep things simple (and avoid any deviation from his lyrical style), I'm avoiding any of his features in other artists' songs. His oeuvre is considerably smaller than someone like, say, Jay-Z and it is stil to be seen if the smaller size of the text corpus won't result in generalization. 
+I'm not aware of any text dataset which condenses all of Kendrick Lamar's verses. Before any RNN can be made, I need to collect all of his works into a single txt file. To keep things simple (and avoid any deviation from his lyrical style), I'm avoiding any of his features in other artists' songs. His oeuvre is considerably smaller than someone like, say, Jay-Z and it is stil to be seen if the smaller size of the text corpus will result in poor  generalization. 
 
 _Note: I'm not going to mention the websites I've scraped to obtain the text corpus. I haven't bothered to check if the websites I've used allow scraping._
 
