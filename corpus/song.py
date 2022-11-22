@@ -2,6 +2,7 @@ import requests
 import bs4 
 from bs4 import BeautifulSoup
 import os
+import json 
 
 class Song:
     """
@@ -9,7 +10,7 @@ class Song:
     """
     def __init__(self, title) -> None:
         self.title = title
-        self.lyrics = None
+        self.lyrics = self.getlyrics()
         self.artist = "Kendrick Lamar"
         self.album = None 
 
@@ -26,46 +27,33 @@ class Song:
 
     #   getting the lyrics of one song
     def getlyrics(self):
-        pass
+        with open("OklamAI/corpus/lyrics/song_links.json") as file:
+            song_links = json.load(file)
+            file.close()
+        link = song_links[self.title]
+        reqs = requests.get(url=link)
+        soup = BeautifulSoup(reqs.text, "lxml")
 
+        body = soup.find("div", class_ = "col-xs-12 col-lg-8 text-center")
+        lyrics  = body.find_all("div", class_ = None)[0].text
+        return lyrics
+            
+
+
+        
 
     
         
 
 
 
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
-
-    #   1. Step One: getting all the song urls from the artist page.
-
-    path = "OklamAI/corpus/lyrics/"
-
-    with open(os.path.join(path, "kendricklamar.html")) as artist_page:
-        soup = BeautifulSoup(artist_page, "lxml")
-    
-    songs = soup.find_all("div", class_="listalbum-item")
-    song_titles = [] 
-    for  song  in songs:
-        song_titles.append(song.text)   
-
-    def save_song_titles(save = None):
-        if save == True:
-            discography = open(os.path.join(path, "song_titles.txt"), "w+")
-            for song  in song_titles:
-                discography.write(song + "\n")
-            discography.close()
+    song = Song("Hood Politics")
+    print(song.lyrics[103])
 
     
+
+
     
 
 
