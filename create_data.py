@@ -1,5 +1,5 @@
 """
-    Python Program to create the required text corpus.
+    Python Program to create the required text corpus form scraping the web.
 """
 
 import numpy as np 
@@ -8,7 +8,7 @@ import requests
 from corpus.song import Song
 import os
 import json
-from itertools import cycle 
+
 
 
 if __name__ == "__main__":    
@@ -26,36 +26,46 @@ if __name__ == "__main__":
     song_links = {} 
     for  song in songs:
         song_titles.append(song.text)   
-        song_links[song.text] =  "https://www.azlyrics.com/" + song.a.get("href")
-
+        song_links[song.text] =  "https://www.azlyrics.com/" + song.a.get("href") 
+     
     def save_song_titles(save = None):
-        if save == True:
-            discography = open(os.path.join(path, "song_titles.txt"), "w+")
-            for song  in song_titles:
-                discography.write(song + "\n")
-            discography.close()
+        try: 
+            if save == True:
+                discography = open(os.path.join(path, "song_titles.txt"), "w+")
+                for song  in song_titles:
+                    discography.write(song + "\n")
+                discography.close()
 
-        with open(os.path.join(path, "song_links.json"), "w+", encoding="utf-8") as links:
-            json.dump(song_links, links, ensure_ascii=False, indent=4)
-            links.close()      
+            with open(os.path.join(path, "song_links.json"), "w+", encoding="utf-8") as links:
+                json.dump(song_links, links, ensure_ascii=False, indent=4)
+                links.close()      
+
+        except: 
+            print("Current IP Blocked")
 
     #   2. Getting the song lyrics from each link | Outputting to text files.
-    title = "DNA."
     def save_song_lyrics():
-        for title in song_titles:
-            song = Song(title = title)
-            lyrics = song.lyrics
-            name = title + ".txt"
-            if not os.path.exists(os.path.join(path, "lyric_pages/", name)):
-                with open(os.path.join(path, "lyric_pages/", name), "w+") as file:
-                    file.write(lyrics)
-                    file.close()
+        
+        """
+            steps to be taken:
+                1. get a list of proxy IP addresses
+                2. get the code below working for each 
+                3. when the current ip address gets blocked, move on to the next one using try-except method.
+        """
+
+        try:
+            for title in song_titles:
+                song = Song(title = title)
+                lyrics = song.lyrics
+                name = title + ".txt"
+                if not os.path.exists(os.path.join(path, "lyric_pages/", name)):
+                    with open(os.path.join(path, "lyric_pages/", name), "w+") as file:
+                        file.write(lyrics)
+                        file.close()
+        except:
+            print("Current IP Blocked")
 
     save_song_lyrics()
-    
-
-
-
 
     
 
