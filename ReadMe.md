@@ -21,7 +21,7 @@ _Note: I'm not going to mention the websites I've scraped to obtain the text cor
 **Notes:**
 1. `OklamAI/corpus/lyrics/lyric_pages` contains the plain text files of all relevant songs. The name of the file is the title of the song.  
 2. While my script _works_ per se, my IP address gets blocked after a few requests in a row. 
-3. One option is to use the `requests-ip-rotator` python package.
+3. A solution is to use a rotating proxy that allocates a new IP address from a set of proxies stored in a proxy pool. 
    
 ## **Part 2: Creating a Chararcter level RNN**
 Andrej Karpathy has an excellent blog post where he creates a Chararcter Level RNN and trains it on a dataset of Shakespeare's works.
