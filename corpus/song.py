@@ -3,6 +3,7 @@ import bs4
 from bs4 import BeautifulSoup
 import os
 import json 
+from requests_ip_rotator import ApiGateway
 
 class Song:
     """
@@ -36,6 +37,8 @@ class Song:
 
         body = soup.find("div", class_ = "col-xs-12 col-lg-8 text-center")
         lyrics  = body.find_all("div", class_ = None)[0].text
+
+
         return lyrics
             
 
@@ -49,8 +52,7 @@ class Song:
 
 if __name__ == "__main__":
     song = Song("Hood Politics")
-    print(song.lyrics[103])
-
+    print(song.lyrics)
     
 
 
