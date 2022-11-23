@@ -5,9 +5,10 @@
 import numpy as np 
 from bs4 import BeautifulSoup
 import requests
-from corpus.song import Song
+from song import Song
 import os
 import json
+import random 
 
 
 
@@ -39,20 +40,11 @@ if __name__ == "__main__":
             with open(os.path.join(path, "song_links.json"), "w+", encoding="utf-8") as links:
                 json.dump(song_links, links, ensure_ascii=False, indent=4)
                 links.close()      
-
         except: 
             print("Current IP Blocked")
 
     #   2. Getting the song lyrics from each link | Outputting to text files.
     def save_song_lyrics():
-        
-        """
-            steps to be taken:
-                1. get a list of proxy IP addresses
-                2. get the code below working for each 
-                3. when the current ip address gets blocked, move on to the next one using try-except method.
-        """
-
         try:
             for title in song_titles:
                 song = Song(title = title)
@@ -65,7 +57,29 @@ if __name__ == "__main__":
         except:
             print("Current IP Blocked")
 
-    save_song_lyrics()
+    
+    def random_ip_generator():
+        #   Function to randomly generate IPv4 addresses. Just for fun, not sure if the addresses are valid.
+        IP = ""
+        num1 = random.randint(0, 255)
+        num2 = random.randint(0, 255)
+        num3 = random.randint(0, 255)
+        num4 = random.randint(0, 255)
+
+        port_list = [8080, 3128, 3123, 8123, 80, 3129]
+
+
+        IP = ".".join([str(num) for num in [num1, num2, num3, num4]])
+        IP = IP + f":{random.choice(port_list)}"
+
+
+
+        return IP
+
+    print(random_ip_generator())
+
+
+
 
     
 
