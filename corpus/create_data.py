@@ -58,5 +58,22 @@ if __name__ == "__main__":
                         file.close()
 
             except:
-                pass 
+                pass
+
+
+    #   3. concatenating all lyrics into a giant text corpus.
+    def create_final_data():
+        file_list = os.listdir(path=os.path.join(path, "lyric_pages/"))
+        
+        with open(os.path.join(path, "KDOT.txt"), "w+") as final:
+            for file in file_list:
+                with open(os.path.join(path, "lyric_pages/", file), "r") as f:
+                    lyrics = f.read()
+
+                final.write(lyrics)
+
+
+
+
+
     
