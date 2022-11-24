@@ -59,8 +59,7 @@ class Song:
 
 if __name__ == "__main__":
     song = Song("ELEMENT.")
-    print(song.lyrics)
-
+    
     
 
     
