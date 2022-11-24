@@ -37,27 +37,28 @@ class Song:
     
         #   proxy_list is a list of proxy IP addresses with dtype string.
         proxy_list = proxy_list.split(" ")[0].split("\n")
-    
+
+        with open("OklamAI/corpus/lyrics/song_links.json") as file:
+            song_links = json.load(file)
+            file.close()
+            link = song_links[self.title]
         for proxy in proxy_list:
             try: 
-                with open("OklamAI/corpus/lyrics/song_links.json") as file:
-                    song_links = json.load(file)
-                    file.close()
-                link = song_links[self.title]
                 reqs = requests.get(url=link, proxies={"http": proxy, "https" : proxy}, timeout=15)
                 soup = BeautifulSoup(reqs.text, "lxml")
 
                 body = soup.find("div", class_ = "col-xs-12 col-lg-8 text-center")
                 lyrics  = body.find_all("div", class_ = None)[0].text
-                break 
+                return lyrics
             except:
-                pass  
+                pass
 
-        return lyrics
+
+            
             
 
 if __name__ == "__main__":
-    song = Song("Hood Politics")
+    song = Song("ELEMENT.")
     print(song.lyrics)
 
     

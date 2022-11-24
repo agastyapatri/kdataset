@@ -43,10 +43,12 @@ if __name__ == "__main__":
         except: 
             print("Current IP Blocked")
 
+
     #   2. Getting the song lyrics from each link | Outputting to text files.
     def save_song_lyrics():
-        try:
-            for title in song_titles:
+
+        for title in song_titles:
+            try: 
                 song = Song(title = title)
                 lyrics = song.lyrics
                 name = title + ".txt"
@@ -54,33 +56,7 @@ if __name__ == "__main__":
                     with open(os.path.join(path, "lyric_pages/", name), "w+") as file:
                         file.write(lyrics)
                         file.close()
-        except:
-            print("Current IP Blocked")
 
-    
-    def random_ip_generator():
-        #   Function to randomly generate IPv4 addresses. Just for fun, not sure if the addresses are valid.
-        IP = ""
-        num1 = random.randint(0, 255)
-        num2 = random.randint(0, 255)
-        num3 = random.randint(0, 255)
-        num4 = random.randint(0, 255)
-
-        port_list = [8080, 3128, 3123, 8123, 80, 3129]
-
-
-        IP = ".".join([str(num) for num in [num1, num2, num3, num4]])
-        IP = IP + f":{random.choice(port_list)}"
-
-
-
-        return IP
-
-    print(random_ip_generator())
-
-
-
-
-    
-
+            except:
+                pass 
     
