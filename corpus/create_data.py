@@ -72,9 +72,6 @@ if __name__ == "__main__":
 
                 final.write(lyrics)
 
-    # save_song_lyrics()
-    # create_final_data()
-
-
+    
 
     
