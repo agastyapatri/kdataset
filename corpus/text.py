@@ -3,7 +3,7 @@ import bs4
 from bs4 import BeautifulSoup
 import os
 import json 
-
+import unidecode
 
 class Song:
     """
@@ -56,33 +56,37 @@ class Song:
 
 class Corpus:
     """
-        Defining a text corpus from locally sourced data, to avoid making HTTP requests all the time. Note that the 
+        Defining the entire text corpus from locally sourced data, to avoid making HTTP requests all the time. Note that the 
     """       
 
     def __init__(self, PATH) -> None:
-        pass
+        self.path = PATH 
 
     def __getitem__(self, i):
         #   returning the nth line of the corpus
-        pass 
+        return self.getlyrics()[i]        
 
     def __str__(self) -> str:
         #   returning the entirety of the lyrics
-        pass 
+        return f"\nTHE KENDRICK LAMAR DATASET\nNumber of lines = {len(self.getlyrics())}\n"
     
     def getlyrics(self):
         #   getting the lyrics from a local source
-        pass 
+        with open(os.path.join(self.path, "KDOT.txt")) as file: 
+            corpus = unidecode.unidecode(file.read())
+            corpus = corpus.split("\n")
 
+        return corpus
+ 
+    
 
     
             
 
 if __name__ == "__main__":
-    song = Song("ELEMENT.")
 
     corpus = Corpus(PATH="/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics/")
-    
+
 
     
 
