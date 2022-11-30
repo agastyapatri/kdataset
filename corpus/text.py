@@ -18,8 +18,8 @@ class Song:
 
     #   Getting a single line of the song
     def __getitem__(self, i):
-        # return self.getlyrics()[i]
-        pass 
+        lyrics = self.getlyrics().split("\n")
+        return lyrics[i]
 
     #   Printing out metadata 
     def __str__(self):
@@ -54,12 +54,34 @@ class Song:
                 pass
 
 
-            
+class Corpus:
+    """
+        Defining a text corpus from locally sourced data, to avoid making HTTP requests all the time. Note that the 
+    """       
+
+    def __init__(self, PATH) -> None:
+        pass
+
+    def __getitem__(self, i):
+        #   returning the nth line of the corpus
+        pass 
+
+    def __str__(self) -> str:
+        #   returning the entirety of the lyrics
+        pass 
+    
+    def getlyrics(self):
+        #   getting the lyrics from a local source
+        pass 
+
+
+    
             
 
 if __name__ == "__main__":
     song = Song("ELEMENT.")
-    
+
+    corpus = Corpus(PATH="/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics/")
     
 
     
