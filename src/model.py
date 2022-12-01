@@ -24,5 +24,4 @@ class Model(nn.Module):
 
 
 if __name__ == "__main__":  
-    import torchtext
-    print()
+    pass 

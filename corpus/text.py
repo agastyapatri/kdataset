@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 import os
 import json 
 import unidecode
+import string
+
 
 class Song:
     """
@@ -15,7 +17,6 @@ class Song:
         self.artist = "Kendrick Lamar"
         self.album = None 
 
-
     #   Getting a single line of the song
     def __getitem__(self, i):
         lyrics = self.getlyrics().split("\n")
@@ -24,7 +25,6 @@ class Song:
     #   Printing out metadata 
     def __str__(self):
         return f"TITLE: {self.title}\nALBUM:{None}\nARTIST:{self.artist}"
-
 
     #   getting the lyrics of one song
     def getlyrics(self):
@@ -56,11 +56,15 @@ class Song:
 
 class Corpus:
     """
-        Defining the entire text corpus from locally sourced data, to avoid making HTTP requests all the time. Note that the 
-    """       
+        Defining the entire text corpus from locally sourced data, to avoid making HTTP requests all the time. 
 
-    def __init__(self, PATH) -> None:
+        ~   vectorize: opting into vectorizing the corpus for feeding the network
+        ~   words: representing the dataset as a list of words or list of sentences. 
+    """       
+    def __init__(self, PATH, vectorize, words) -> None:
         self.path = PATH 
+        self.vectorize = vectorize
+        self.words = words
 
     def __getitem__(self, i):
         #   returning the nth line of the corpus
@@ -68,27 +72,44 @@ class Corpus:
 
     def __str__(self) -> str:
         #   returning the entirety of the lyrics
-        return f"\nTHE KENDRICK LAMAR DATASET\nNumber of lines = {len(self.getlyrics())}\n"
-    
+        return f"\nTHE KENDRICK LAMAR DATASET\nNumber of lines = {len(self.getlyrics())}\nNumber of Words = 75687 \nSize of Vocabulary = {len(self.vocabulary())}\n"
+
+    def __len__(self) -> int:
+        return len(self.getlyrics())
+
+    def vocabulary(self):
+        #   Finding the unique words in the entire corpus. 
+        lyrics = self.getlyrics()
+        vocabulary = [] 
+        for sentence in lyrics:
+            words = sentence.split(" ")
+            for word in words: 
+                vocabulary.append(word)
+
+        vocabulary = set(vocabulary)
+        return vocabulary
+
     def getlyrics(self):
         #   getting the lyrics from a local source
-        with open(os.path.join(self.path, "KDOT.txt")) as file: 
+        with open(os.path.join(self.path, "KDOT.txt"), "r") as file: 
             corpus = unidecode.unidecode(file.read())
             corpus = corpus.split("\n")
+        lines = [line.strip(r"\"") for line in corpus]
+        
+        if self.words:
+            corpus = " ".join(lines).split()
 
-        return corpus
- 
-    
-
-    
-            
+        if self.vectorize:
+            #   vectorizing the text
+            return corpus
+        else: 
+            return corpus
 
 if __name__ == "__main__":
 
-    corpus = Corpus(PATH="/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics/")
-
-
+    corpus = Corpus(PATH="/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics/", words = False, vectorize=True)
     
+
 
     
     

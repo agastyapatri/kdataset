@@ -8,14 +8,31 @@ import os
 import string
 import unidecode
 
+
 """
     1. Importing the data from a OklamAI/corpus/lyrics/KDOT.txt
 
-    ~ corpus is a list of all sentences. DATASET.
+    ~   DATASET: kdot is a list of all the sentences that occur in the discography.
+    ~   vocab is a list of all unique words that occur in the dataset.   
 """
 path = "OklamAI/corpus/lyrics/"
+kdot = Corpus(PATH=path, words = False, vectorize=True)
+vocab = kdot.vocabulary()
 
-dataset = Corpus(PATH=path)
+
+
+#   Describing the data with plots.
+def describe_data():
+
+    pass 
+
+
+
+
+
+
+
+
 
 
 
