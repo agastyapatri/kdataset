@@ -3,7 +3,7 @@
 """
 
 from corpus.text import Corpus
-from src.model import Model 
+from src.model import Network 
 import os 
 import string
 import unidecode

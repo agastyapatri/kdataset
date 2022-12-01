@@ -5,6 +5,7 @@ import os
 import json 
 import unidecode
 import string
+import collections 
 
 
 class Song:
@@ -61,10 +62,9 @@ class Corpus:
         ~   vectorize: opting into vectorizing the corpus for feeding the network
         ~   words: representing the dataset as a list of words or list of sentences. 
     """       
-    def __init__(self, PATH, vectorize, words) -> None:
+    def __init__(self, PATH, vectorize) -> None:
         self.path = PATH 
         self.vectorize = vectorize
-        self.words = words
 
     def __getitem__(self, i):
         #   returning the nth line of the corpus
@@ -77,17 +77,22 @@ class Corpus:
     def __len__(self) -> int:
         return len(self.getlyrics())
 
-    def vocabulary(self):
+    def words(self, vocab=None):
         #   Finding the unique words in the entire corpus. 
         lyrics = self.getlyrics()
-        vocabulary = [] 
-        for sentence in lyrics:
-            words = sentence.split(" ")
-            for word in words: 
-                vocabulary.append(word)
 
-        vocabulary = set(vocabulary)
-        return vocabulary
+        words = []
+
+        for sentence in lyrics:
+            temp = sentence.split(" ")
+            for word in temp: 
+                words.append(word)
+        
+        vocabulary = set(words)
+        if vocab == True:
+            return vocabulary
+        return words
+
 
     def getlyrics(self):
         #   getting the lyrics from a local source
@@ -96,9 +101,6 @@ class Corpus:
             corpus = corpus.split("\n")
         lines = [line.strip(r"\"") for line in corpus]
         
-        if self.words:
-            corpus = " ".join(lines).split()
-
         if self.vectorize:
             #   vectorizing the text
             return corpus
@@ -107,11 +109,11 @@ class Corpus:
 
 if __name__ == "__main__":
 
-    corpus = Corpus(PATH="/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics/", words = False, vectorize=True)
-    
+    corpus = Corpus(PATH="/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics/", vectorize=True)
+        
+    words = corpus.words(vocab=True)
 
-
-    
+    print(len(words))
     
 
 
