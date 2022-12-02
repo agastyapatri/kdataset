@@ -7,6 +7,13 @@ import numpy as np
 import unidecode 
 import string
 
+class Dataset(torch.utils.data.Dataset):
+    def __init__(self) -> None:
+        super().__init__()
+
+    
+
+
 class Network(nn.Module):
     #   Defining a word based LSTM to generate lyrics
     
@@ -25,7 +32,7 @@ class Network(nn.Module):
         #   Describing the network 
         return f"\nOklamAI: Kendrick Lamar Lyric Generation.\n" 
     
-    def network(self, x, prev_state):
+    def network(self):
         net = nn.Sequential(
 
             nn.Embedding(
@@ -53,4 +60,4 @@ class Network(nn.Module):
 
 if __name__ == "__main__":  
     lstm = Network(dataset = None)
-    print(lstm)
+    print(lstm.network())

@@ -37,8 +37,8 @@ Andrej Karpathy has an excellent blog post where he creates a Chararcter Level R
 
 Steps to be taken:
 
-1. Importing the text data: DONE
-2. Vectorizing word characters into integers: ONGOING 
+1. Importing the text data: This step also needs to remove puncutation from the text.
+2. Vectorizing word characters into integers: In 
 3. Batch and prefetch data
 4. Building a RNN Model 
 5. Training the RNN Model
