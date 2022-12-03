@@ -15,8 +15,8 @@ from src.dataset import TensorData
 path = "/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics"
 
 text_data = Corpus(PATH=path)
-
 tensor_data = TensorData(text_data=text_data.vocabulary)
+
 
 
 

@@ -5,8 +5,7 @@ import os
 import json 
 import unidecode
 import string
-import collections 
-
+import random
 
 class Song:
     """
@@ -57,19 +56,20 @@ class Song:
 
 class Corpus:
     """
-        Defining the entire text corpus from locally sourced data, to avoid making HTTP requests all the time. 
+        Defining the entire text corpus from locally sourced data.
+        Attrs: 
+            words: a list of individual words that occur in the corpus
+            vocabulary: a list of unique words that make up the corpus
+            text: a giant string of all the lyrics
+            chunks: a list of evenly sized chunks of strings.
 
-        ~   vectorize: opting into vectorizing the corpus for feeding the network
-        ~   words: representing the dataset as a list of words or list of sentences. 
     """       
     def __init__(self, PATH) -> None:
         self.path = PATH 
-
-
         self.words = self.get_words()[0]
         self.vocabulary = self.get_words()[1]
-
-
+        self.chunks = None 
+        
     def __getitem__(self, i):
         #   returning the nth line of the corpus
         return self.getlyrics()[i]        
@@ -98,21 +98,19 @@ class Corpus:
         with open(os.path.join(self.path, "KDOT.txt"), "r") as file: 
             corpus = unidecode.unidecode(file.read())
             corpus = corpus.split("\n")
-        lines = [line.strip(r"\"") for line in corpus]
-        lines = [line.translate(str.maketrans("", "", string.punctuation)) for line in corpus]
-        
+        lines = [line.strip(r"\"") for line in corpus]        
         return lines
 
 
 if __name__ == "__main__":
 
     corpus = Corpus(PATH="/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics/")
-    print(corpus)
-            
+    def random_chunk():
+        corpus_len = None 
+        start_index = random.randint(0, 2000)                
+        print(start_index)
 
-
-    
-    
+    print(corpus.text)    
     
 
 

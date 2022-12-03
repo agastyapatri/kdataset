@@ -14,7 +14,7 @@ class TensorData(torch.utils.data.Dataset):
     def __init__(self, text_data) -> None:
         super().__init__()
         self.text_data = text_data 
-        self.text_tensor = None
+        self.text_tensor  = self.text_to_tensor()
         
 
     def __len__(self) -> int:
@@ -30,10 +30,10 @@ class TensorData(torch.utils.data.Dataset):
         #   temporary         
         return self.text_data[i]
 
-    def text_to_tensor(self, text_data):
+    def text_to_tensor(self, text_data = None) -> torch.tensor:
         #   cleaning and converting the text corpus into usable data
-        pass 
+        pass  
 
 if __name__ == "__main__":
     dataset = TensorData(text_data = None)
-    print(dataset)
+    print(dataset.text_tensor)

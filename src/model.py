@@ -23,7 +23,7 @@ class Network(nn.Module):
         self.embedding_dim = 128 
         self.num_layers = 3 
         self.n_vocab = 10
-
+    
     def __getitem__(self, i):
         #   Returning the Nth layer of the network 
         return self.network()[i]
