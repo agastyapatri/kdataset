@@ -62,9 +62,13 @@ class Corpus:
         ~   vectorize: opting into vectorizing the corpus for feeding the network
         ~   words: representing the dataset as a list of words or list of sentences. 
     """       
-    def __init__(self, PATH, vectorize) -> None:
+    def __init__(self, PATH) -> None:
         self.path = PATH 
-        self.vectorize = vectorize
+
+
+        self.words = self.get_words()[0]
+        self.vocabulary = self.get_words()[1]
+
 
     def __getitem__(self, i):
         #   returning the nth line of the corpus
@@ -72,12 +76,12 @@ class Corpus:
 
     def __str__(self) -> str:
         #   returning the entirety of the lyrics
-        return f"\nTHE KENDRICK LAMAR DATASET\nNumber of lines = {len(self.getlyrics())}\nNumber of Words = 75687 \nSize of Vocabulary = {len(self.vocabulary())}\n"
+        return f"\nTHE KENDRICK LAMAR DATASET\nNumber of lines = {len(self.getlyrics())}\nNumber of Words = 75687 \nSize of Vocabulary = {len(self.get_words()[1])}\n"
 
     def __len__(self) -> int:
         return len(self.getlyrics())
 
-    def words(self, vocab=None):
+    def get_words(self):
         #   Finding the unique words in the entire corpus. 
         lyrics = self.getlyrics()
 
@@ -88,10 +92,9 @@ class Corpus:
             for word in temp: 
                 words.append(word)
         
-        vocabulary = set(words)
-        if vocab == True:
-            return vocabulary
-        return words
+        vocab = set(words)
+        
+        return words, vocab 
 
 
     def getlyrics(self):
@@ -101,21 +104,13 @@ class Corpus:
             corpus = corpus.split("\n")
         lines = [line.strip(r"\"") for line in corpus]
         
-        if self.vectorize:
-            #   vectorizing the text
-            return corpus
-        else: 
-            return corpus
+        return corpus 
 
 if __name__ == "__main__":
 
-    corpus = Corpus(PATH="/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics/", vectorize=True)
-        
-    words = corpus.words(vocab=True)
-
-    print(len(words))
+    corpus = Corpus(PATH="/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics/")
     
-
+    print(corpus)
 
     
             
