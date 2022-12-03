@@ -27,7 +27,7 @@ class TensorData(torch.utils.data.Dataset):
         return heading + dims + batching
 
     def __getitem__(self, i):
-        #   loading and returning a sample from the dataset at the given index        
+        #   temporary         
         return self.text_data[i]
 
     def text_to_tensor(self, text_data):

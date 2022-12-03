@@ -14,10 +14,10 @@ from src.dataset import TensorData
 """
 path = "/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics"
 
-kdot = Corpus(PATH=path)
+text_data = Corpus(PATH=path)
 
-dataset = TensorData(text_data=kdot.words)
-print(dataset[10:100])
+tensor_data = TensorData(text_data=text_data.vocabulary)
+
 
 
 

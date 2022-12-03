@@ -84,18 +84,14 @@ class Corpus:
     def get_words(self):
         #   Finding the unique words in the entire corpus. 
         lyrics = self.getlyrics()
-
         words = []
-
         for sentence in lyrics:
             temp = sentence.split(" ")
             for word in temp: 
                 words.append(word)
-        
         vocab = set(words)
         
         return words, vocab 
-
 
     def getlyrics(self):
         #   getting the lyrics from a local source
@@ -103,16 +99,15 @@ class Corpus:
             corpus = unidecode.unidecode(file.read())
             corpus = corpus.split("\n")
         lines = [line.strip(r"\"") for line in corpus]
+        lines = [line.translate(str.maketrans("", "", string.punctuation)) for line in corpus]
         
-        return corpus 
+        return lines
+
 
 if __name__ == "__main__":
 
     corpus = Corpus(PATH="/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics/")
-    
     print(corpus)
-
-    
             
 
 
