@@ -48,7 +48,6 @@ Steps to be taken:
 
 
 ### **2.1 Vectorizing the text corpus**
-The dataset consists of a large vocabulary. One hot encoding in this case would result in a sparse dataset with very high dimensionality. As an alternative, word embeddings would be a representation of the semantics of a word, efficiently encoding semantic information that might be relecant to the task at hand. 
-To that end, `word2vec` seems to be a good alternative
+* The dataset consists of a large vocabulary. One hot encoding in this case would result in a sparse dataset with very high dimensionality. As an alternative, word embeddings would be a representation of the semantics of a word, efficiently encoding semantic information that might be relecant to the task at hand. 
 
-
+* One hot encoding might be a decent ad hoc solution, but I intend to replace it with a better alternative.

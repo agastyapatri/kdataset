@@ -6,6 +6,7 @@ import json
 import unidecode
 import string
 import random
+import numpy as np 
 
 class Song:
     """
@@ -62,13 +63,13 @@ class Corpus:
             vocabulary: a list of unique words that make up the corpus
             text: a giant string of all the lyrics
             chunks: a list of evenly sized chunks of strings.
-
     """       
     def __init__(self, PATH) -> None:
         self.path = PATH 
         self.words = self.get_words()[0]
         self.vocabulary = self.get_words()[1]
         self.chunks = None 
+
         
     def __getitem__(self, i):
         #   returning the nth line of the corpus
@@ -89,7 +90,7 @@ class Corpus:
             temp = sentence.split(" ")
             for word in temp: 
                 words.append(word)
-        vocab = set(words)
+        vocab = list(set(words))
         
         return words, vocab 
 
@@ -105,12 +106,9 @@ class Corpus:
 if __name__ == "__main__":
 
     corpus = Corpus(PATH="/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics/")
-    def random_chunk():
-        corpus_len = None 
-        start_index = random.randint(0, 2000)                
-        print(start_index)
 
-    print(corpus.text)    
+
+
     
 
 

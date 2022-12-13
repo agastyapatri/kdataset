@@ -14,26 +14,43 @@ class TensorData(torch.utils.data.Dataset):
     def __init__(self, text_data) -> None:
         super().__init__()
         self.text_data = text_data 
-        self.text_tensor  = self.text_to_tensor()
-        
 
-    def __len__(self) -> int:
-        return len(self.text_data)
-    
     def __str__(self) -> str:
         heading = f"\nRepresenting Text data as Tensors\n"
         dims = f"\nNumber of Dimensions: "
         batching = f"\nElements per Batch: \n"
         return heading + dims + batching
 
-    def __getitem__(self, i):
-        #   temporary         
-        return self.text_data[i]
+    def __len__(self) -> int:
+        return len(self.text_data)
 
-    def text_to_tensor(self, text_data = None) -> torch.tensor:
-        #   cleaning and converting the text corpus into usable data
-        pass  
+    def __getitem__(self, idx):
+        # One hot encoding the sentences in the corpus.
+        lines = self.text_data
+        words = [] 
 
+        for line in lines:
+            temp = line.split(" ")
+            for word in temp:
+                words.append(word)
+
+        vocabulary = list(set(words))
+
+        vector = np.zeros((len(lines), len(vocabulary)), dtype=np.float32)
+
+
+
+        """
+        Steps needed: 
+            1. find vocabulary from the sentences 
+            2. do onehot encoding based on the vocabulary for each sentence. 
+        """
+         
+
+        
+        return vector[idx, :]
+
+    
 if __name__ == "__main__":
-    dataset = TensorData(text_data = None)
-    print(dataset.text_tensor)
+    dataset = TensorData(text_data=["1", "2", "3", "4"])
+    print(dataset[1:10])
