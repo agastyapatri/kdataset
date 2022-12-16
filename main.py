@@ -21,9 +21,9 @@ path = "/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics"
 text_data = Corpus(PATH=path)
 tensor_data = TensorData(text_data=text_data.vocabulary)
 
-model = Network(input_size = len(text_data.vocabulary), hidden_size=256, output_size=text_data.vocabulary, num_layers=2)
+model = Network(input_size = len(text_data.vocabulary), hidden_size=256, sequence_length = 128, output_size=len(text_data.vocabulary), num_layers=2)
 
-trainer = Trainer(model = model,dataloader = None, num_epochs = 100, learning_rate = 0.001) 
+trainer = Trainer(model = model, dataloader = None, num_epochs = 100, learning_rate = 0.001, batch_size=128) 
 # trainer.train_all_epochs()
 
 

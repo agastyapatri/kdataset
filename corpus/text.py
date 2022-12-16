@@ -99,13 +99,17 @@ class Corpus:
         with open(os.path.join(self.path, "KDOT.txt"), "r") as file: 
             corpus = unidecode.unidecode(file.read())
             corpus = corpus.split("\n")
-        lines = [line.strip(r"\"") for line in corpus]        
+        lines = [line.strip(r"\"") for line in corpus] 
+        translator = str.maketrans("", "", string.punctuation)
+        
+        lines = [line.translate(translator) for line in lines]        
         return lines
 
 
 if __name__ == "__main__":
 
     corpus = Corpus(PATH="/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics/")
+    print(corpus)
 
 
 
