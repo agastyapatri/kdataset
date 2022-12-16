@@ -4,7 +4,7 @@
 import torch
 import torch.nn as nn 
 import numpy as np 
-from model import Network
+from model import LSTM
 from dataset import TensorData
 
 class Trainer(nn.Module):

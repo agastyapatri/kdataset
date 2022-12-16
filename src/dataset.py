@@ -27,7 +27,6 @@ class TensorData(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         # One hot encoding the sentences in the corpus.
         word_to_idx = {word: idx for idx, word in enumerate(set(self.words))}
-        
         one_hot = np.zeros((len(self.words), len(self.vocabulary)))
 
         for i, word in enumerate(self.words):
