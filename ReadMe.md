@@ -39,7 +39,7 @@ As rap lyrics have meaning dictated by specific structure and context, a word le
 Steps to be taken:
 
 1. Importing the text data: This step also needs to remove puncutation from the text.
-2. Vectorizing word characters into integers: In 
+2. Vectorizing the text for consumption by the network  
 3. Batch and prefetch data
 4. Building a RNN Model 
 5. Training the RNN Model

@@ -1,10 +1,13 @@
 """
     Laying out the step by step framework for training and text generation. 
 """
-
+import torch 
+import torch.nn as nn 
 import os 
 import string
 import unidecode
+
+#   imports from local files
 from corpus.text import Corpus
 from src.model import Network 
 from src.dataset import TensorData
@@ -17,14 +20,15 @@ from src.traintest import Trainer
     
 """
 path = "/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics"
-
 text_data = Corpus(PATH=path)
-tensor_data = TensorData(text_data=text_data.vocabulary)
+tensor_data = TensorData(words=text_data.words, vocab=text_data.vocabulary)
+dataloader = torch.utils.data.DataLoader(tensor_data)
+
+
 
 model = Network(input_size = len(text_data.vocabulary), hidden_size=256, sequence_length = 128, output_size=len(text_data.vocabulary), num_layers=2)
 
-trainer = Trainer(model = model, dataloader = None, num_epochs = 100, learning_rate = 0.001, batch_size=128) 
-# trainer.train_all_epochs()
+trainer = Trainer(model = model, dataloader = dataloader, num_epochs = 100, learning_rate = 0.001, batch_size=128) 
 
 
 
