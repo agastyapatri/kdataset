@@ -8,6 +8,7 @@ import unidecode
 from corpus.text import Corpus
 from src.model import Network 
 from src.dataset import TensorData
+from src.traintest import Trainer
 
 """
     1. Loading the Data.
@@ -20,7 +21,17 @@ path = "/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics"
 text_data = Corpus(PATH=path)
 tensor_data = TensorData(text_data=text_data.vocabulary)
 
-print(text_data)
+model = Network(input_size = len(text_data.vocabulary), hidden_size=256, output_size=text_data.vocabulary, num_layers=2)
+
+trainer = Trainer(model = model,dataloader = None, num_epochs = 100, learning_rate = 0.001) 
+# trainer.train_all_epochs()
+
+
+
+
+
+
+
 
 
 

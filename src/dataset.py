@@ -9,7 +9,6 @@ class TensorData(torch.utils.data.Dataset):
     """
         Taking in a list of text data and returning a torch dataset 
         ~   text_data = a list of text (words or sentences)
-        ~   
     """
     def __init__(self, text_data) -> None:
         super().__init__()
@@ -38,19 +37,17 @@ class TensorData(torch.utils.data.Dataset):
 
         vector = np.zeros((len(lines), len(vocabulary)), dtype=np.float32)
 
-
-
         """
         Steps needed: 
             1. find vocabulary from the sentences 
             2. do onehot encoding based on the vocabulary for each sentence. 
         """
-         
 
-        
-        return vector[idx, :]
+        return vocabulary[idx]
 
     
 if __name__ == "__main__":
-    dataset = TensorData(text_data=["1", "2", "3", "4"])
-    print(dataset[1:10])
+    dataset = TensorData(text_data=["1", "2", "3", "4", "4", "1"])
+
+
+    

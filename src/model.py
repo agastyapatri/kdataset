@@ -17,40 +17,21 @@ class Dataset(torch.utils.data.Dataset):
 class Network(nn.Module):
     #   Defining a word based LSTM to generate lyrics
     
-    def __init__(self, dataset) -> None:
+    def __init__(self, input_size, hidden_size, output_size, num_layers) -> None:
         super().__init__()
-        self.lstm_size = 128 
-        self.embedding_dim = 128 
-        self.num_layers = 3 
-        self.n_vocab = 10
-    
-    def __getitem__(self, i):
-        #   Returning the Nth layer of the network 
-        return self.network()[i]
+        self.hidden_size = hidden_size
+        self.num_layers = num_layers
+        
+        self.lstm = nn.LSTM(input_size, hidden_size, num_layers)
+        self.fc = nn.Linear(hidden_size, output_size)
 
-    def __str__(self):
-        #   Describing the network 
-        return f"\nOklamAI: Kendrick Lamar Lyric Generation.\n" 
-    
-    def network(self):
-        net = nn.Sequential(
+    def forward(self, x, hidden, cell):
+        ouptut, (hidden, cell) = self.lstm(x, (hidden , cell))
 
-            nn.Embedding(
-                num_embeddings = self.n_vocab,
-                embedding_dim=self.embedding_dim,
-                ),
+        output = self.fc(output)
 
-            nn.LSTM(
-            input_size = self.lstm_size,
-            hidden_size = self.lstm_size,
-            num_layers = self.num_layers,
-            dropout = 0.2
-                ),
+        return output, hidden, cell 
 
-            nn.Linear(self.lstm_size, self.n_vocab)
-        )
-        return net
-    
     def init_state(self, sequence_length):
         return (torch.zeros(self.num_layers, sequence_length, self.lstm_size),
                 torch.zeros(self.num_layers, sequence_length, self.lstm_size))
@@ -59,5 +40,5 @@ class Network(nn.Module):
 
 
 if __name__ == "__main__":  
-    lstm = Network(dataset = None)
-    print(lstm.network())
+    lstm = Network()
+    print()
