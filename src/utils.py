@@ -6,8 +6,16 @@ class Evaluator:
     """
         Defining methods that will be used for evaluating the performance of a model 
     """
+    def __init__(self, method):
+        pass 
+    
+    def evaluate(self):
+        #   Function to evaluate based on the method specified in the constructor. 
 
-    pass 
+
+        pass
+
+    pass  
 
 
 class Generator:

@@ -3,20 +3,22 @@
 """
 import torch
 import torch.nn as nn 
+from torch.utils.data import DataLoader
 import numpy as np 
 from model import LSTM
 from dataset import TensorData
+
 
 class Trainer(nn.Module):
     """
         Training KDOTBOT
     """
-    def __init__(self, model ,dataloader, num_epochs, learning_rate, batch_size) -> None:
+    def __init__(self, model, dataset, num_epochs, learning_rate, batch_size) -> None:
         super().__init__()
-        self.dataloader = dataloader
+        self.dataloader = DataLoader(dataset, batch_size=batch_size)
         self.num_epochs = num_epochs
         self.network = model
-        self.batch_size = batch_size
+        # self.batch_size = batch_size
         
         self.optimizer = torch.optim.Adam(model.parameters(), lr =  learning_rate)
         self.loss_fun = nn.CrossEntropyLoss()
@@ -31,18 +33,24 @@ class Trainer(nn.Module):
         return sentence1 + sentence2 + sentence3 + sentence4 + sentence5
 
 
-    def train_one_epoch(self, e):
+    def train_one_epoch(self, hidden, cell):
         """
         training the network for a single epoch
         """
         self.network.train(True)
         running_loss = 0.0
         length = len(self.dataloader)
+        # hidden, cell = self.network.init_hidden_state()
 
         for i, sample in enumerate(self.dataloader):
-            sample = sample.unsqueeze(0)
-            output = self.network(sample)
-            pass 
+            self.optimizer.zero_grad()
+            output, hidden, cell = self.network(sample)
+            
+            
+            
+            break
+
+
         pass 
     
 
@@ -50,9 +58,12 @@ class Trainer(nn.Module):
         """
         training the network all the epochs
         """
-        hidden, cell = self.network.init_hidden_state()
+        for e in range(self.num_epochs):
+            h, c= self.network.init_hidden_state()
+            self.train_one_epoch(hidden=h, cell=c)
+            break
+            
         pass 
     
-
 
 

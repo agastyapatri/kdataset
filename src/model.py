@@ -19,17 +19,24 @@ class LSTM(nn.Module):
         self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first = True, dtype = torch.float32)
         self.fc = nn.Linear(hidden_size, output_size, dtype = torch.float32)
 
-    def forward(self, x, hidden, cell):
-        ouptut, (hidden, cell) = self.lstm(x, (hidden , cell))
-        output = self.fc(output)
-        return output, hidden, cell 
+    def forward(self, x):
+        batch_size = x.size()[0]
 
-    def init_hidden_state(self, sequence_length):
-        return (torch.zeros(self.num_layers, self.sequence_length, self.lstm_size),
-                torch.zeros(self.num_layers, self.sequence_length, self.lstm_size))
+        h = torch.zeros(self.num_layers, batch_size, self.hidden_size)
+        c = torch.zeros(self.num_layers, batch_size, self.hidden_size)
+
+        output, (hidden, cell)= self.lstm(x, (h, c))
+        output = self.fc(output)
+        output = output[:, -1, :]
+        return output, hidden, cell
+
+    def init_hidden_state(self):
+        return (torch.zeros(self.num_layers, self.sequence_length, self.hidden_size),
+                torch.zeros(self.num_layers, self.sequence_length, self.hidden_size))
 
 
 class RNN(nn.Module):
+
     pass 
 
 class GRU(nn.Module):

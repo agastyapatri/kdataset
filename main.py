@@ -8,35 +8,30 @@ import os
 import string
 import unidecode
 
-#   imports from local files
+#   local imports
 from corpus.text import Corpus
 from src.model import LSTM 
 from src.dataset import TensorData
 from src.traintest import Trainer
-from src.utils import Evaluate 
+from torch.utils.data import DataLoader
 
-"""
-    1. Loading the Data.
-    ~ text data is a list of sentences.
-    ~ tensor data is a matrix where each row is a one hot encoding of each sentence. 
-    
-"""
+
+#   DEFINING HYPERPARAMETERS
 path = "/home/agastyapatri/Projects/NLP/OklamAI/corpus/lyrics"
+seq_len = 32
+batch_size = 4
+hidden_size = 256
+lstm_layers = 2
+
+
 text_data = Corpus(PATH=path)
-tensor_data = TensorData(words=text_data.words, vocab=text_data.vocabulary)
-dataloader = torch.utils.data.DataLoader(tensor_data)
+tensor_data = TensorData(words=text_data.words, vocab=text_data.vocabulary, sequence_length=seq_len)
 
-model = LSTM(input_size = len(text_data.vocabulary), hidden_size=256, sequence_length = 128, output_size=len(text_data.vocabulary), num_layers=2)
-trainer = Trainer(model = model, dataloader = dataloader, num_epochs = 100, learning_rate = 0.001, batch_size=128) 
+model = LSTM(input_size = len(text_data.vocabulary), hidden_size=hidden_size, sequence_length = seq_len, output_size=len(text_data.vocabulary), num_layers=lstm_layers)
 
-print(trainer)
+trainer = Trainer(model = model, dataset = tensor_data, num_epochs = 10, learning_rate = 0.001, batch_size=batch_size) 
 
-
-
-
-
-
-
+trainer.train_all_epochs()
 
 
 

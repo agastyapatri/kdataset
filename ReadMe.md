@@ -31,6 +31,10 @@ I'm not aware of any text dataset which condenses all of Kendrick Lamar's verses
 2. While my script _works_ per se, my IP address gets blocked after a few requests in a row. 
 3. A solution is to use a rotating proxy that allocates a new IP address from a set of proxies stored in a proxy pool.
 4. In the obtained set of proxies, some work and others don't depending on the protocol used by it. I've used a `try / except` clause to catch those that are relevant. Eventually, the file will have to be updated to a new batch of proxies.
+
+5. About the shapes of the input:
+   1. The input to the network is of the shape `(batch_size, sequence_length, sample_length)`
+   2. The hidden state is of the shape `(number_of_layers, batch_size, hidden_size)`
    
 ## **Part 2: Creating a Word level RNN**
 As rap lyrics have meaning dictated by specific structure and context, a word level RNN might be better at understanding and generating this kind of text.

@@ -10,16 +10,12 @@ class TensorData(torch.utils.data.Dataset):
         Taking in a list of text data and returning a torch dataset 
         
     """
-    def __init__(self, words, vocab) -> None:
+    def __init__(self, words, vocab, sequence_length) -> None:
         super().__init__()
         self.words = words 
         self.vocabulary = vocab
+        self.sequence_length = sequence_length
 
-    def __str__(self) -> str:
-        heading = f"\nRepresenting Text data as Tensors\n"
-        dims = f"\nNumber of Dimensions: "
-        batching = f"\nElements per Batch: \n"
-        return heading + dims + batching
 
     def __len__(self) -> int:
         return len(self.words)
@@ -32,7 +28,7 @@ class TensorData(torch.utils.data.Dataset):
         for i, word in enumerate(self.words):
             one_hot[i, word_to_idx[word]] = 1
         one_hot = torch.tensor(one_hot, dtype=torch.float32)
-        return one_hot[idx, :]
+        return one_hot[idx : idx+self.sequence_length, :]
     
 if __name__ == "__main__":
     print("native file")
