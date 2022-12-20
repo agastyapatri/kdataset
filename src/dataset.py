@@ -28,9 +28,14 @@ class TensorData(torch.utils.data.Dataset):
         for i, word in enumerate(self.words):
             one_hot[i, word_to_idx[word]] = 1
         one_hot = torch.tensor(one_hot, dtype=torch.float32)
-        return one_hot[idx : idx+self.sequence_length, :]
+
+        sequence = one_hot[idx : idx+self.sequence_length, :] 
+        target = one_hot[idx+self.sequence_length+1, :]
+
+
+        return (sequence, target)
     
 if __name__ == "__main__":
-    print("native file")
+    pass 
 
     

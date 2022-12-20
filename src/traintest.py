@@ -42,17 +42,17 @@ class Trainer(nn.Module):
         length = len(self.dataloader)
         # hidden, cell = self.network.init_hidden_state()
 
-        for i, sample in enumerate(self.dataloader):
-            self.optimizer.zero_grad()
-            output, hidden, cell = self.network(sample)
+        for i, data in enumerate(self.dataloader):
+            sample_batch, target_batch = data 
             
-            
-            
+            # self.optimizer.zero_grad()
+            # output, hidden, cell = self.network(sample_batch)
+            # print(output.size())
+            print(sample_batch.size())
+            print(target_batch.size())
+
             break
 
-
-        pass 
-    
 
     def train_all_epochs(self):
         """
@@ -61,9 +61,6 @@ class Trainer(nn.Module):
         for e in range(self.num_epochs):
             h, c= self.network.init_hidden_state()
             self.train_one_epoch(hidden=h, cell=c)
-            break
-            
+            break            
         pass 
     
-
-
