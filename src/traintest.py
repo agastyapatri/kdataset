@@ -18,7 +18,7 @@ class Trainer(nn.Module):
         self.dataloader = DataLoader(dataset, batch_size=batch_size)
         self.num_epochs = num_epochs
         self.network = model
-        # self.batch_size = batch_size
+        self.batch_size = batch_size
         
         self.optimizer = torch.optim.Adam(model.parameters(), lr =  learning_rate)
         self.loss_fun = nn.CrossEntropyLoss()
