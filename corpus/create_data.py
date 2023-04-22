@@ -5,7 +5,7 @@
 import numpy as np 
 from bs4 import BeautifulSoup
 import requests
-from OklamAI.corpus.text import Song
+from corpus.text import Song
 import os
 import json
 import random 
